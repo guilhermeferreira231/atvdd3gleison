@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="cadastro.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <title>Cadastro</title>
+</head>
+<body>
+
+
+<div id="sideMenu" class="side-menu">
+  <button class="close-btn" onclick="closeMenu()">&times;</button>
+  <a href="paginainicial.html" style="margin-top:32px; display:block;">Página Inicial</a>
+  <a href="cadastro.html" style="display:block;">Cadastro/Login</a>
+  <a href="arenas.html">Encontrar Academia</a>
+  <a href="campeonatos.html">Campeonatos</a>
+  <a href="redesociais.html">Redes Sociais</a>
+</div>
+
+<button class="open-btn" onclick="openMenu()">&#9776;</button>
+
+<div class="txt1">
+<h1 style="font-size:2.7em; font-weight:700; color:#d32f2f; margin-bottom:18px; text-align:center; font-family:'Montserrat','Roboto',Arial,sans-serif; letter-spacing:0.5px;">Faça seu cadastro</h1>
+</div>
+<form id="cadastroForm">
+<div>
+
+
+
+
+
+<input class="inps" type="name" name="Nome" placeholder="  Nome" required style="height: 32px; font-size: 15px; width: 100%; max-width: 370px; margin-left: auto; margin-right: auto; display: block; margin-bottom: 14px;">
+<input class="inps" type="email" name="Email" placeholder="  E-mail" required style="height: 32px; font-size: 15px; width: 100%; max-width: 370px; margin-left: auto; margin-right: auto; display: block; margin-bottom: 0;">
+<div style="width: 100%; max-width: 370px; margin-left: auto; margin-right: auto; min-height: 18px; margin-bottom: 14px;">
+  <span id="emailCadastroError" style="color:#d32f2f; font-size:13px; margin-left:2px; white-space:normal; visibility:hidden; min-width:100px; height:18px; display:flex; align-items:center; justify-content:left; font-family:'Montserrat','Roboto',Arial,sans-serif;"></span>
+</div>
+<input class="inps" type="text" name="cpf" maxlength="14" placeholder="  Cpf" required oninput="formatarCPF(this)" inputmode="numeric" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" style="height: 32px; font-size: 15px; width: 100%; max-width: 370px; margin-left: auto; margin-right: auto; display: block; margin-bottom: 0;">
+<div style="width: 100%; max-width: 370px; margin-left: auto; margin-right: auto; min-height: 18px; margin-bottom: 14px;">
+  <span id="cpfCadastroError" style="color:#d32f2f; font-size:13px; margin-left:2px; white-space:normal; visibility:hidden; min-width:100px; height:18px; display:flex; align-items:center; justify-content:left; font-family:'Montserrat','Roboto',Arial,sans-serif;"></span>
+</div>
+<div style="width: 100%; max-width: 370px; margin-left: auto; margin-right: auto; position: relative; margin-bottom: 0;">
+  <input class="inps" type="password" name="Senha" id="senhaInput" placeholder="  Senha" required style="height: 32px; font-size: 15px; width: 100%; display: block; min-width: 0; margin-bottom: 0;" minlength="8" maxlength="16" oninput="if(this.value.length>16)this.value=this.value.slice(0,16)">
+  <button type="button" id="toggleSenha" style="background:none; border:none; cursor:pointer; color:#d32f2f; font-size:11px; padding:0 2px; position:absolute; right:8px; top:50%; transform:translateY(-50%);">Ver senha</button>
+</div>
+<!-- Requisitos de senha -->
+<div style="width: 100%; max-width: 370px; margin-left: auto; margin-right: auto; margin-bottom: 14px;">
+  <span id="senhaInfo" style="color:#d32f2f; font-size:11px; margin-left:2px; margin-top:2px; transition:color 0.2s; display: flex; align-items: center; font-family:'Montserrat','Roboto',Arial,sans-serif;"><span id="senhaInfoIcon" style="font-size:15px; color:#d32f2f; font-weight:bold; margin-right:7px; display:flex; align-items:center; line-height:1; height:1em; font-family:'Montserrat','Roboto',Arial,sans-serif;">×</span> A senha deve ter entre 8 e 16 caracteres.</span>
+  <span id="senhaRequisitoMinuscula" style="color:#d32f2f; font-size:11px; margin-left:2px; margin-top:2px; transition:color 0.2s; display: flex; align-items: center; font-family:'Montserrat','Roboto',Arial,sans-serif;"><span id="senhaMinusculaIcon" style="font-size:15px; color:#d32f2f; font-weight:bold; margin-right:7px; display:flex; align-items:center; line-height:1; height:1em; font-family:'Montserrat','Roboto',Arial,sans-serif;">×</span> A senha deve ter pelo menos uma letra minúscula.</span>
+  <span id="senhaRequisitoMaiuscula" style="color:#d32f2f; font-size:11px; margin-left:2px; margin-top:2px; transition:color 0.2s; display: flex; align-items: center; font-family:'Montserrat','Roboto',Arial,sans-serif;"><span id="senhaMaiusculaIcon" style="font-size:15px; color:#d32f2f; font-weight:bold; margin-right:7px; display:flex; align-items:center; line-height:1; height:1em; font-family:'Montserrat','Roboto',Arial,sans-serif;">×</span> A senha deve ter pelo menos uma letra maiúscula.</span>
+</div>
+
+<button class="btn" style="display: flex; align-items: center; justify-content: center; gap: 10px; white-space: nowrap; padding: 16px 0 16px 0; font-size: 16px; border-radius: 7px; background: #d32f2f; color: #fff; border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.10); cursor: pointer; transition: background 0.2s; min-width: 220px; width: 100%; max-width: 370px; margin-left: auto; margin-right: auto;">
+  <span>Realizar</span> <span>cadastro</span>
+</button>
+ <div style="margin-top: 18px; width: 100%; display: flex; align-items: center; justify-content: center;">
+   <span style="display:inline-block; height:1.5px; width:22%; background:#fff; margin:0 12px 4px 0; vertical-align:middle;"></span>
+   <span style="display:inline-block; font-size:18px; color:#fff; margin:0 0 8px 0; vertical-align:middle;">ou</span>
+   <span style="display:inline-block; height:1.5px; width:22%; background:#fff; margin:0 0 4px 12px; vertical-align:middle;"></span>
+ </div>
+ <div style="margin-top: 14px; text-align: left; width: 100%; max-width: 370px; margin-left: auto; margin-right: auto; padding-left: 20px;">
+   <span style="font-size:17px; color:#fff;">Já tem uma conta?</span>
+   <button type="button" onclick="window.location.href='login.html'" style="margin-left:16px; background:#d32f2f; color:#fff; border:none; border-radius:4px; padding:7px 22px; font-size:17px; cursor:pointer; transition:background 0.2s;">Fazer login</button>
+ </div>
+</div>
+</form>
+
+<script>
+
+// Menu lateral
+function openMenu() {
+  document.getElementById("sideMenu").style.width = "220px";
+  document.getElementById("sideMenu").style.left = "0";
+}
+function closeMenu() {
+  document.getElementById("sideMenu").style.width = "0";
+}
+
+// Formatar CPF
+function formatarCPF(input) {
+  let value = input.value.replace(/\D/g, "");
+  if (value.length > 11) value = value.slice(0, 11);
+  let formatted = value;
+  if (value.length > 9) {
+    formatted = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+  } else if (value.length > 6) {
+    formatted = value.replace(/(\d{3})(\d{3})(\d{1,3})/, "$1.$2.$3");
+  } else if (value.length > 3) {
+    formatted = value.replace(/(\d{3})(\d{1,3})/, "$1.$2");
+  }
+  input.value = formatted;
+}
+
+// Feedback visual dos requisitos de senha
+document.addEventListener('DOMContentLoaded', function() {
+  var senhaInput = document.getElementById('senhaInput');
+  var senhaInfo = document.getElementById('senhaInfo');
+  var senhaInfoIcon = document.getElementById('senhaInfoIcon');
+  var senhaRequisitoMinuscula = document.getElementById('senhaRequisitoMinuscula');
+  var senhaMinusculaIcon = document.getElementById('senhaMinusculaIcon');
+  var senhaRequisitoMaiuscula = document.getElementById('senhaRequisitoMaiuscula');
+  var senhaMaiusculaIcon = document.getElementById('senhaMaiusculaIcon');
+  var toggleSenha = document.getElementById('toggleSenha');
+  senhaInput.addEventListener('input', function() {
+    // Comprimento
+    if (senhaInput.value.length >= 8 && senhaInput.value.length <= 16) {
+      senhaInfo.style.color = '#388e3c'; // verde
+      senhaInfoIcon.textContent = '✓';
+      senhaInfoIcon.style.color = '#388e3c';
+      senhaInfoIcon.style.background = 'transparent';
+    } else {
+      senhaInfo.style.color = '#d32f2f'; // vermelho
+      senhaInfoIcon.textContent = '×';
+      senhaInfoIcon.style.color = '#d32f2f';
+      senhaInfoIcon.style.background = 'transparent';
+    }
+    // Requisito de minúscula
+    const temMinuscula = /[a-z]/.test(senhaInput.value);
+    if (temMinuscula) {
+      senhaRequisitoMinuscula.style.color = '#388e3c';
+      senhaMinusculaIcon.textContent = '✓';
+      senhaMinusculaIcon.style.color = '#388e3c';
+      senhaMinusculaIcon.style.background = 'transparent';
+    } else {
+      senhaRequisitoMinuscula.style.color = '#d32f2f';
+      senhaMinusculaIcon.textContent = '×';
+      senhaMinusculaIcon.style.color = '#d32f2f';
+      senhaMinusculaIcon.style.background = 'transparent';
+    }
+    // Requisito de maiúscula
+    const temMaiuscula = /[A-Z]/.test(senhaInput.value);
+    if (temMaiuscula) {
+      senhaRequisitoMaiuscula.style.color = '#388e3c';
+      senhaMaiusculaIcon.textContent = '✓';
+      senhaMaiusculaIcon.style.color = '#388e3c';
+      senhaMaiusculaIcon.style.background = 'transparent';
+    } else {
+      senhaRequisitoMaiuscula.style.color = '#d32f2f';
+      senhaMaiusculaIcon.textContent = '×';
+      senhaMaiusculaIcon.style.color = '#d32f2f';
+      senhaMaiusculaIcon.style.background = 'transparent';
+    }
+  });
+  if (toggleSenha) {
+    toggleSenha.addEventListener('click', function() {
+      if (senhaInput.type === 'password') {
+        senhaInput.type = 'text';
+        toggleSenha.textContent = 'Esconder senha';
+      } else {
+        senhaInput.type = 'password';
+        toggleSenha.textContent = 'Ver senha';
+      }
+    });
+  }
+});
+
+// Validação e cadastro
+
+document.getElementById('cadastroForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const nome = e.target.Nome.value;
+  const email = e.target.Email.value;
+  const senha = e.target.Senha.value;
+  const cpf = e.target.cpf.value;
+  var emailError = document.getElementById('emailCadastroError');
+  var cpfError = document.getElementById('cpfCadastroError');
+  emailError.style.visibility = 'hidden';
+  emailError.textContent = '';
+  cpfError.style.visibility = 'hidden';
+  cpfError.textContent = '';
+  // Validação extra para garantir que o CPF está completo
+  if (!/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf)) {
+    cpfError.textContent = 'Digite um CPF válido no formato 000.000.000-00';
+    cpfError.style.visibility = 'visible';
+    e.target.cpf.focus();
+    return;
+  }
+  // Validação dos requisitos de senha
+  const temTamanho = senha.length >= 8 && senha.length <= 16;
+  const temMinuscula = /[a-z]/.test(senha);
+  const temMaiuscula = /[A-Z]/.test(senha);
+  if (!(temTamanho && temMinuscula && temMaiuscula)) {
+    document.getElementById('senhaInput').focus();
+    return;
+  }
+  let users = JSON.parse(localStorage.getItem('users') || '[]');
+  // Normaliza o CPF para comparar sem pontos e traço
+  const cpfLimpo = cpf.replace(/\D/g, "");
+  let emailJaCadastrado = users.some(u => u.email === email);
+  let cpfJaCadastrado = users.some(u => u.cpf && u.cpf.replace(/\D/g, "") === cpfLimpo);
+  if (emailJaCadastrado && cpfJaCadastrado) {
+    emailError.textContent = 'Este e-mail já está cadastrado!';
+    emailError.style.visibility = 'visible';
+    cpfError.textContent = 'Este CPF já foi cadastrado!';
+    cpfError.style.visibility = 'visible';
+    return;
+  }
+  if (emailJaCadastrado) {
+    emailError.textContent = 'Este e-mail já está cadastrado!';
+    emailError.style.visibility = 'visible';
+    return;
+  }
+  if (cpfJaCadastrado) {
+    cpfError.textContent = 'Este CPF já foi cadastrado!';
+    cpfError.style.visibility = 'visible';
+    return;
+  }
+  users.push({ nome, email, senha, cpf });
+  localStorage.setItem('users', JSON.stringify(users));
+  localStorage.setItem('userName', nome);
+  // Mostra mensagem de sucesso e bolinha de carregando animada
+  let loadingDiv = document.createElement('div');
+  loadingDiv.id = 'loading-redirect';
+  loadingDiv.style.position = 'fixed';
+  loadingDiv.style.top = '0';
+  loadingDiv.style.left = '0';
+  loadingDiv.style.width = '100vw';
+  loadingDiv.style.height = '100vh';
+  loadingDiv.style.background = '#000';
+  loadingDiv.style.display = 'flex';
+  loadingDiv.style.alignItems = 'center';
+  loadingDiv.style.justifyContent = 'center';
+  loadingDiv.style.zIndex = '9999';
+  loadingDiv.innerHTML = `
+    <div style="display:flex; flex-direction:column; align-items:center;">
+      <span style="font-size:26px;color:#fff;margin-bottom:18px;font-family:'Montserrat', 'Segoe UI', Arial, sans-serif; letter-spacing:0.5px;">✅ Conta criada com sucesso!</span>
+      <div class=\"spinner-loading\" style=\"width:60px;height:60px;border:7px solid #fff;border-top:7px solid #d32f2f;border-radius:50%;animation:spinLoading 1s linear infinite;\"></div>
+      <span style=\"font-size:20px;color:#fff;margin-top:18px;font-family:'Montserrat', 'Segoe UI', Arial, sans-serif; letter-spacing:0.5px;\">Redirecionando... <span style=\"font-size:22px;\"></span></span>
+    </div>
+    <style>@keyframes spinLoading{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}</style>
+  `;
+  document.body.appendChild(loadingDiv);
+  setTimeout(function() {
+    window.location.href = 'paginainicial.html';
+  }, 2000);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Campeonatos</title>
+    <link rel="stylesheet" href="campeonato.css">
+</head>
+<body>
+    <!-- Carrossel de imagens ocupando toda a tela -->
+    <div class="carousel" id="carousel">
+        <div class="carousel-overlay">
+            <h1 class="carousel-title">
+                <span class="titulo-topo">Área de Campeonatos</span>
+                <span class="subtexto">Bem vindo a área de campeonatos, procure oq se encaixa melhor e vai em busca da luta</span>
+            </h1>
+        </div>
+        <img src="men-8151665_1280.jpg" class="carousel-img active">
+        <img src="maxresdefault.jpg" class="carousel-img">
+        <img src="Muay_Thai_Fight_Us_Vs_Burma_(80668065).jpeg" class="carousel-img">
+    </div>
+
+    <!-- Campeonatos -->
+    <div class="campeonatos-list">
+        <div class="campeonato-card anim-campeonato">
+            <div class="campeonato-row">
+                <div class="campeonato-img"><span>IMG</span></div>
+                <div class="campeonato-texto">Texto</div>
+                <div class="campeonato-actions">
+                    <div class="campeonato-frase">FRASE MOTIVAACIONAL</div>
+                    <button class="campeonato-btn">Fazer inscrição</button>
+                </div>
+            </div>
+        </div>
+        <div class="campeonato-card anim-campeonato">
+            <div class="campeonato-row reverse">
+                <div class="campeonato-actions">
+                    <div class="campeonato-frase">FRASE MOTIVAACIONAL</div>
+                    <button class="campeonato-btn">Fazer inscrição</button>
+                </div>
+                <div class="campeonato-texto">Texto</div>
+                <div class="campeonato-img"><span>IMG</span></div>
+            </div>
+        </div>
+        <!-- Adicione mais campeonatos aqui -->
+    </div>
+
+    <script>
+    // Carrossel de imagens
+    let current = 0;
+    const imgs = document.querySelectorAll('.carousel-img');
+    setInterval(() => {
+        imgs[current].classList.remove('active');
+        current = (current + 1) % imgs.length;
+        imgs[current].classList.add('active');
+    }, 4000); // 4 segundos
+
+    // Animação dos campeonatos ao aparecer
+    function animateOnScroll() {
+        const cards = document.querySelectorAll('.anim-campeonato');
+        const trigger = window.innerHeight * 0.85;
+        cards.forEach(card => {
+            const top = card.getBoundingClientRect().top;
+            if (top < trigger) {
+                card.classList.add('show');
+            }
+        });
+    }
+    window.addEventListener('scroll', animateOnScroll);
+    window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+</html>

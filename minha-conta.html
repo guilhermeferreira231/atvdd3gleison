@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minha Conta</title>
+  <link rel="stylesheet" href="minha-conta.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="sideMenu" class="side-menu" style="display:flex; flex-direction:column; height:100vh; min-width:220px; position:fixed; left:0; top:0; width:0; overflow-x:hidden; background:#222; z-index:1000; transition:width 0.3s;">
+    <button class="close-btn" onclick="closeMenu()">&times;</button>
+    <div style="display:flex; flex-direction:column; flex:1 1 auto; justify-content:flex-start;">
+      <a href="paginainicial.html" style="display:block; margin-top:32px;">Início</a>
+      <a href="arenas.html">Academias</a>
+      <a href="campeonatos.html">Campeonatos</a>
+      <a href="redesociais.html">Redes Sociais</a>
+    </div>
+    <a href="minha-conta.html" id="userMenu" style="color:#fff; text-decoration:none; font-size:16px; width:90%; display:flex; align-items:center; cursor:pointer; min-height:56px; margin-left:24px; margin-bottom:32px; position:fixed; left:0; bottom:0; background:transparent; z-index:1101;">
+      <div>
+        <div style="font-weight:600; font-size:17px; margin-bottom:2px;">Minha conta</div>
+        <span style="font-size:20px; margin-right:6px;">👤</span>
+        <span id="userNameMenu"></span>
+      </div>
+    </a>
+  </div>
+  <button class="open-btn" onclick="openMenu()" style="position:fixed; top:18px; left:18px; z-index:1100; background:#222; color:#fff; border:none; font-size:28px; border-radius:6px; width:44px; height:44px; display:flex; align-items:center; justify-content:center; cursor:pointer;">&#9776;</button>
+  <div class="account-container">
+    <h1>Minha Conta</h1>
+    <div class="account-info">
+      <div><strong>Nome:</strong> <span id="accountName"></span></div>
+      <div><strong>Email:</strong> <span id="accountEmail"></span></div>
+      <div><strong>CPF:</strong> <span id="accountCPF"></span></div>
+    </div>
+  </div>
+  <script>
+    function openMenu() {
+      document.getElementById("sideMenu").style.width = "220px";
+    }
+    function closeMenu() {
+      document.getElementById("sideMenu").style.width = "0";
+    }
+    function showUserInMenu() {
+      let user = localStorage.getItem('userName');
+      if (!user) {
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        if (users.length > 0 && users[users.length-1].email) {
+          user = users[users.length-1].email.split('@')[0];
+        }
+      }
+      const userNameMenu = document.getElementById('userNameMenu');
+      const userMenu = document.getElementById('userMenu');
+      if (user && userNameMenu && userMenu) {
+        userMenu.style.display = 'flex';
+        userNameMenu.textContent = user;
+      } else if (userMenu) {
+        userMenu.style.display = 'none';
+      }
+    }
+    function showAccountData() {
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      let user = users.length > 0 ? users[users.length-1] : null;
+      if (user) {
+        document.getElementById('accountName').textContent = user.nome || '';
+        document.getElementById('accountEmail').textContent = user.email || '';
+        document.getElementById('accountCPF').textContent = user.cpf || '';
+      }
+    }
+    window.onload = function() {
+      showUserInMenu();
+      showAccountData();
+    };
+  </script>
+</body>
+</html>

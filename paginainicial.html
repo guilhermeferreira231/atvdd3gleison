@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="paginainicial.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Pagina inicial</title>
+    <style>
+      body {
+        min-height: 100vh;
+        background: #000;
+        position: relative;
+        overflow: hidden;
+      }
+
+    </style>
+</head>
+<body>
+
+<div id="sideMenu" class="side-menu" style="display:flex; flex-direction:column; height:100vh; min-width:220px;">
+  <button class="close-btn" onclick="closeMenu()">&times;</button>
+  <div style="display:flex; flex-direction:column; flex:1 1 auto; justify-content:flex-start;">
+    <a href="paginainicial.html" style="display:block; margin-top:32px;">Página Inicial</a>
+    <a href="cadastro.html" style="display:block;">Cadastro/Login</a>
+    <a href="arenas.html">Academias</a>
+    <a href="campeonato.html">Campeonatos</a>
+    <a href="redesociais.html">Redes Sociais</a>
+  </div>
+  <div id="userMenuContainer" style="width:100%; margin-left:0; margin-bottom:0; position:sticky; bottom:80px; background:transparent;">
+    <a href="minha-conta.html" id="userMenu" style="color:#fff; text-decoration:none; font-size:16px; display:flex; align-items:center; justify-content:flex-start; cursor:pointer; min-height:56px; width:100%; height:56px; text-align:left; padding-left:48px;">
+      <div style="display:flex; flex-direction:column; align-items:flex-start; justify-content:center; width:100%; height:100%; text-align:left; position:relative; top:50%; transform:translateY(-50%);">
+        <div style="font-weight:600; font-size:17px; margin-bottom:2px; width:100%; text-align:left;">Minha conta</div>
+        <div style="display:flex; align-items:center; justify-content:flex-start; width:100%; text-align:left;">
+          <span style="font-size:20px; margin-right:6px;">👤</span>
+          <span id="userNameMenu"></span>
+        </div>
+      </div>
+    </a>
+    <div style="display:flex; align-items:center; width:100%;">
+      <button id="logoutBtn" style="display:none; margin-top:10px; margin-left:33px; background:linear-gradient(90deg,#d32f2f 60%,#b71c1c 100%); color:#fff; border:none; border-radius:6px; padding:7px 18px; font-size:15px; font-weight:600; cursor:pointer; min-width:90px; max-width:140px; box-shadow:0 2px 8px rgba(0,0,0,0.10); letter-spacing:0.5px; transition:background 0.2s,box-shadow 0.2s; outline:none; display:none; align-self:flex-start; text-align:center; width:140px; justify-content:center;">Sair</button>
+    </div>
+  </div>
+</div>
+
+<button class="open-btn" onclick="openMenu()">&#9776;</button>
+
+
+<div class="txt1">
+  <h1>Bem-vindo ao Portal de Quadras, Academias e Competições!</h1>
+  <p style="color:#fff; font-size:16px; margin-top:18px;">Use o menu ao lado para navegar pelo site.</p>
+</div>
+
+<script>
+
+function openMenu() {
+  document.getElementById("sideMenu").style.width = "220px";
+  document.getElementById("sideMenu").style.left = "0";
+}
+function closeMenu() {
+  document.getElementById("sideMenu").style.width = "0";
+}
+
+function showUserInMenu() {
+  let user = localStorage.getItem('userName');
+  // Se não houver userName, tenta pegar o email e extrair o nome antes do @
+  if (!user) {
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    if (users.length > 0 && users[users.length-1].email) {
+      user = users[users.length-1].email.split('@')[0];
+    }
+  }
+  const userNameMenu = document.getElementById('userNameMenu');
+  const userMenu = document.getElementById('userMenu');
+  // Só mostra "Minha conta" se o usuário existir no localStorage.users
+  let users = JSON.parse(localStorage.getItem('users') || '[]');
+  let usuarioCadastrado = users.some(u => u.nome === user);
+  const logoutBtn = document.getElementById('logoutBtn');
+  const userMenuContainer = document.getElementById('userMenuContainer');
+  if (user && usuarioCadastrado && userNameMenu && userMenu && logoutBtn && userMenuContainer) {
+    userMenu.style.display = 'flex';
+    userNameMenu.textContent = user;
+    logoutBtn.style.display = 'block';
+    userMenuContainer.style.display = 'block';
+  } else if (userMenu && logoutBtn && userMenuContainer) {
+    userMenu.style.display = 'none';
+    logoutBtn.style.display = 'none';
+    userMenuContainer.style.display = 'none';
+  }
+
+  if (logoutBtn) {
+    logoutBtn.onclick = function() {
+      localStorage.removeItem('userName');
+      showUserInMenu();
+      window.location.href = 'login.html';
+    };
+  }
+}
+window.onload = function() {
+  if (typeof showUserInMenu === 'function') showUserInMenu();
+};
+</script>
+</body>
+</html>
